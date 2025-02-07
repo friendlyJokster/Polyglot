@@ -28,9 +28,9 @@ mysqlConnection.connect(err => {
 });
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('✅ Connected to MongoDB'))
-    .catch((err) => console.error('MongoDB Connection Error:', err));
+// mongoose.connect(process.env.MONGO_URI)
+//     .then(() => console.log('✅ Connected to MongoDB'))
+//     .catch((err) => console.error('MongoDB Connection Error:', err));
 
 
 module.exports = { mysqlConnection };
