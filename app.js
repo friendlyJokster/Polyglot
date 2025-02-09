@@ -13,6 +13,11 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 //app.use(express.json());
 
+// Handle root route to prevent 404 errors
+app.get('/', (req, res) => {
+  res.send('✅ API is running!');
+});
+
 // MySQL Route - Fetch Products
 // app.get('/mysql/products', (req, res) => {
 //   mysqlConnection.query('SELECT * FROM products', (err, results) => {
