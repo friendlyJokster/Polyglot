@@ -27,16 +27,15 @@ router.post('/products', [
   
 
 // ✅ Fetch all products
-router.get('/products', async(req, res) => {
-    try{
-        mysqlConnection.query('SELECT * FROM Products', (err, results) => {
-            if (err) throw err; 
-              console.error("MySQL Fetch Error:", err); // Log error
-              res.json(results);
-          });
-    } catch(error){
-        res.status(500).json({ error: "Internal Server Error" });
-    }
+router.get('/products', (req, res) => {
+    mysqlConnection.query('SELECT * FROM products', (err, results) => {
+        if (err) {
+            console.error("MySQL Fetch Error:", err);  // Log the actual error
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(results);
+    });
 });
+
 
 module.exports = router;
