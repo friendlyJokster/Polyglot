@@ -23,7 +23,7 @@ router.post('/', (req, res) => {
 
 // Get all reviews
 router.get('/', (req, res) => {
-  const query = 'SELECT * FROM reviews';  // Ensure lowercase `reviews`
+  const query = 'SELECT * FROM Reviews';  // Ensure lowercase `reviews`
 
   mysqlConnection.query(query, (err, results) => {
     if (err) {
