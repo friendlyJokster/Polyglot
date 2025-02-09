@@ -28,7 +28,7 @@ router.post('/products', [
 
 // ✅ Fetch all products
 router.get('/products', (req, res) => {
-    mysqlConnection.query('SELECT * FROM products', (err, results) => {
+    mysqlConnection.query('SELECT * FROM Products', (err, results) => {
         if (err) {
             console.error("MySQL Fetch Error:", err);  // Log the actual error
             return res.status(500).json({ error: err.message });
