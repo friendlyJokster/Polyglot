@@ -5,7 +5,7 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("https://polyglot-c6j4.onrender.com/mysql/products")
+    fetch("https://polyglot-8iil.onrender.com/mysql/products")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
