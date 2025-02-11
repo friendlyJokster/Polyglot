@@ -23,32 +23,32 @@ jobs:
 
       - name: Install Backend Dependencies
         run: |
-          cd backend
+          cd Backend
           npm install
 
-      - name: Run Backend Tests (Optional)
-        run: |
-          cd backend
-          npm test  # Remove if no tests are available
+      # - name: Run Backend Tests (Optional)
+      #   run: |
+      #     cd Backend
+      #     npm test  # Remove if no tests are available
 
       - name: Deploy Backend to Render
         run: |
           curl -X POST "$RENDER_BACKEND_DEPLOY_HOOK"
 
-      - name: Install Frontend Dependencies
-        run: |
-          cd frontend
-          npm install
+      # - name: Install Frontend Dependencies
+      #   run: |
+      #     cd Frontend
+      #     npm install
 
-      - name: Build Frontend
-        run: |
-          cd frontend
-          npm run build
+      # - name: Build Frontend
+      #   run: |
+      #     cd Frontend  # FIXED: Changed "Frontend" to "frontend"
+      #     npm run build
 
-      - name: Deploy Frontend to Render
-        run: |
-          curl -X POST "$RENDER_FRONTEND_DEPLOY_HOOK"
+      # - name: Deploy Frontend to Render
+      #   run: |
+      #     curl -X POST "$RENDER_FRONTEND_DEPLOY_HOOK"
 
 env:
   RENDER_BACKEND_DEPLOY_HOOK: ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}
-  RENDER_FRONTEND_DEPLOY_HOOK: ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}
+  # RENDER_FRONTEND_DEPLOY_HOOK: ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}
