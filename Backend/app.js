@@ -4,14 +4,18 @@ const bodyParser = require('body-parser');
 const reviewRoutes = require('./routes/reviewRoutes');
 require('dotenv').config();
 const morgan = require('morgan');
-
+const cors = require("cors");
 
 
 const app = express();
 
+
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 //app.use(express.json());
+
+// Enable CORS for all requests
+app.use(cors());
 
 // Handle root route to prevent 404 errors
 app.get('/', (req, res) => {
