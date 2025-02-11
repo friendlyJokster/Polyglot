@@ -1,16 +1,17 @@
 import React from "react";
+import Reviews from "./Reviews"; // Import the Reviews component
 
-function ProductCard({ name, description, price, stock }) {
+const ProductCard = ({ product }) => {
   return (
-    <div style={{ border: "1px solid #ccc", padding: "10px", margin: "10px" }}>
-      <h2>{name}</h2>
-      <p>{description ? description : "No description available"}</p>
-      <p>Price: ₹{price}</p>
-      <p style={{ color: stock > 0 ? "green" : "red" }}>
-        {stock > 0 ? `In Stock: ${stock}` : "Out of Stock"}
-      </p>
+    <div className="border p-4 rounded-lg shadow-md">
+      <h2 className="text-xl font-semibold">{product.name}</h2>
+      <p className="text-gray-600">{product.description}</p>
+      <p className="text-green-500 font-bold">${product.price}</p>
+
+      {/* Add the Reviews Component Below */}
+      <Reviews productId={product.id} />
     </div>
   );
-}
+};
 
 export default ProductCard;
