@@ -1,22 +1,54 @@
-name: Deploy App
+name: Deploy to Render
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: npm install
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-      - name: Build the project
-        run: npm run build
+      - name: Install Backend Dependencies
+        run: |
+          cd backend
+          npm install
 
-      - name: Deploy
-        run: echo "Deploying the application..."
+      - name: Run Backend Tests (Optional)
+        run: |
+          cd backend
+          npm test  # Remove if no tests are available
+
+      - name: Deploy Backend to Render
+        run: |
+          curl -X POST "$RENDER_BACKEND_DEPLOY_HOOK"
+
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Build Frontend
+        run: |
+          cd frontend
+          npm run build
+
+      - name: Deploy Frontend to Render
+        run: |
+          curl -X POST "$RENDER_FRONTEND_DEPLOY_HOOK"
+
+env:
+  RENDER_BACKEND_DEPLOY_HOOK: ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}
+  RENDER_FRONTEND_DEPLOY_HOOK: ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}
