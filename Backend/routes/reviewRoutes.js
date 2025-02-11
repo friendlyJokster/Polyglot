@@ -45,19 +45,21 @@ router.post('/', (req, res) => {
 // Get paginated reviews for a product
 router.get('/:product_id/reviews', (req, res) => {
   const { product_id } = req.params;
-  const { page = 1, limit = 10 } = req.query; // Default: page 1, 10 reviews per page
-
+  const page = parseInt(req.query.page) || 1; // Default page = 1
+  const limit = parseInt(req.query.limit) || 10; // Default limit = 10
   const offset = (page - 1) * limit;
-  const query = 'SELECT * FROM Reviews WHERE product_id = ? LIMIT ? OFFSET ?';
 
-  mysqlConnection.query(query, [product_id, parseInt(limit), parseInt(offset)], (err, results) => {
+  const query = `SELECT * FROM Reviews WHERE product_id = ? LIMIT ${limit} OFFSET ${offset}`;
+
+  mysqlConnection.query(query, [product_id], (err, results) => {
     if (err) {
       console.error("❌ MySQL Fetch Error:", err);
       return res.status(500).json({ error: err.message });
     }
 
-    res.json({ page: parseInt(page), limit: parseInt(limit), reviews: results });
+    res.json({ page, limit, reviews: results });
   });
 });
 
 module.exports = router;
+
