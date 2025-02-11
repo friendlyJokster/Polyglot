@@ -1,2 +1,0 @@
-# Polyglot
-Polyglot Persistence Application

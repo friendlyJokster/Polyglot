@@ -13,6 +13,11 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 //app.use(express.json());
 
+// Handle root route to prevent 404 errors
+app.get('/', (req, res) => {
+  res.send('✅ API is running!');
+});
+
 // MySQL Route - Fetch Products
 // app.get('/mysql/products', (req, res) => {
 //   mysqlConnection.query('SELECT * FROM products', (err, results) => {
@@ -24,18 +29,11 @@ app.use(bodyParser.json());
 //   });
 // });
 
-console.log("🔍 ENV VARIABLES:");
-console.log("MYSQL_HOST:", process.env.MYSQL_HOST);
-console.log("MYSQL_USER:", process.env.MYSQL_USER);
-console.log("MYSQL_PASSWORD:", process.env.MYSQL_PASSWORD);
-console.log("MYSQL_DATABASE:", process.env.MYSQL_DATABASE);
-console.log("MYSQL_PORT:", process.env.MYSQL_PORT);
-
-
 const productRoutes = require('./routes/productRoutes');  // Ensure correct path
 app.use('/mysql', productRoutes);  // This means your endpoint will be /mysql/products
 
 
+// Use MySQL Review Routes (Fixed Path)
 app.use('/reviews', reviewRoutes);
 
 const PORT = process.env.PORT || 3000;
